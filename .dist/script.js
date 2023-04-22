@@ -1,131 +1,69 @@
-
-
-// // const fetch = require("node-fetch");
-
-// // const ip = `178.155.5.246`
-// // const requestURL = `http://ip-api.com/json/${ip}`
-
-
-
-// // function sendRequest(method, url) {
-// //   const headers = {
-// //     'Content-Type': 'application/json'
-// //   }
-
-// //   return fetch(url, {
-// //     method: method,
-// //     headers: headers
-// //   }).then(response => {
-// //     if (response.ok) {
-// //       return response.text()
-// //     }
-
-// //     return response.text().then(error => {
-// //       const e = new Error('Что-то пошло не так')
-// //       e.data = error
-// //       throw e
-// //     })
-// //   })
-// // }
-
-// // sendRequest('GET', requestURL)
-// //   .then(data => console.log(data))
-// //   .catch(err => console.log(err))
+var result = document.getElementById("result");
+var result2 = document.getElementById("result2");
+var result3 = document.getElementById("result3");
+var result4= document.getElementById("result4");
+var result5 = document.getElementById("result5");
+var result6 = document.getElementById("result6");
+var result7 = document.getElementById("result7");
+var result8 = document.getElementById("result8");
+var result9 = document.getElementById("result9");
+var result10 = document.getElementById("result10");
+var result11 = document.getElementById("result11");
+var input = document.getElementById("input");
+var btn = document.getElementById("btn");
+const header = document.querySelector('header')
 
 
 
 
 
-// // function sendRequest (method, url){
-// //     return new Promise((resolve, reject) =>{
-// //         var XMLHttpRequest = require('xhr2');
-// //         var xhr = new XMLHttpRequest();
-// //         xhr.open(method,url)
-// //         xhr.responseType = 'json'
-// //         xhr.onload = () => {
-// //             if (xhr.status >= 400){
-// //                 reject(xhr.response)
-// //             }else{
-// //                 resolve(xhr.response)
-// //             }
-// //         }
-// //         xhr.onerror = () => {
-// //             reject(xhr.response)
-// //         }
-// //         xhr.send()
-// //     })
-// // }
-
-// // sendRequest('GET', requestURL)
-// //     .then(data => console.log(data))
-//     // .catch(err => console.log(err))
 
 
+btn.addEventListener("click", function(){
+    const ip = input.value
+    const requestURL = `http://ip-api.com/json/${ip}`
+    header.classList.add('active')
 
 
-// // function sendRequest (method, url){
-// //     return fetch(url)
-// //         .then(response => response.json())
-// //         .catch(error => console.log(error))
-// // }
-// // sendRequest('GET', requestURL).then(data => console.log(data)).catch(error => console.log(error))
+function sendRequest(method, url) {
+const headers = {
+'Content-Type': 'application/json'
+}
 
-// const arrayOfRu =  ['а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'э', 'ю', 'я']
-// const arrayOfEn =  ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+return fetch(url, {
+method: method,
+headers: headers
+}).then(response => {
+if (response.ok) {
+  return response.json()
+}
 
+return response.json().then(error => {
+  const e = new Error('Что-то пошло не так')
+  e.data = error
+  throw e
+})
+})
+}
+sendRequest('GET', requestURL)
+.then(data => {
+const arrayOfData = [data.status, data.country, 
+data.countryCode, data.region, data.regionName, data.city, data.zip, data.lat, data.lon, data.timezone, data.query]
+result.innerHTML = `${arrayOfData[0]}`
+result2.innerHTML = `${arrayOfData[1]}`
+result3.innerHTML = `${arrayOfData[2]}`
+result4.innerHTML = `${arrayOfData[3]}`
+result5.innerHTML = `${arrayOfData[4]}`
+result6.innerHTML = `${arrayOfData[5]}`
+result7.innerHTML = `${arrayOfData[6]}`
+result8.innerHTML = `${arrayOfData[7]}`
+result9.innerHTML = `${arrayOfData[8]}`
+result10.innerHTML = `${arrayOfData[9]}`
+result11.innerHTML = `${arrayOfData[10]}`
+console.log(arrayOfData.map(String))
 
+})
+.catch(err => result.innerHTML= err)
+})
 
-   
-// function shiftRu (str){
-//     let arr = str.split('')
-//     let result = []
-//     let shiftResult = []
-//     for(let i = 0; i <= arr.length; i++){
-//        result.push(arrayOfRu.indexOf(arr[i]))
-//       }
-//     let dev = result.map((el) => el + 3)
-//      for(let i = 0; i <= dev.length; i++){
-//         shiftResult.push(arrayOfRu.find((el,ind) => ind == dev[i]))
-//     }
-//     return shiftResult.filter((el) => el).join('')
-// }
-
-
-// function shiftEn(str){
-//     let arr = str.split('')
-//     let result = []
-//     let shiftResult = []
-//     for(let i = 0; i <= arr.length; i++){
-//        result.push(arrayOfEn.indexOf(arr[i]))
-//       }
-//     let dev = result.map((el) => el + 3)
-//      for(let i = 0; i <= dev.length; i++){
-//         shiftResult.push(arrayOfEn.find((el,ind) => ind == dev[i]))
-//     }
-//     return shiftResult.filter((el) => el).join('')
-// }
-
-// function shiftEnUnc(str){
-//     let arr = str.split('')
-//     let result = []
-//     let shiftResult = []
-//     for(let i = 0; i <= arr.length; i++){
-//        result.push(arrayOfEn.indexOf(arr[i]))
-//       }
-//     let dev = result.map((el) => el - 3)
-//      for(let i = 0; i <= dev.length; i++){
-//         shiftResult.push(arrayOfEn.find((el,ind) => ind == dev[i]))
-//     }
-//     return shiftResult.filter((el) => el).join('')
-// }
-
-// function main(str, lang){
-//     if(lang === 'ru'){
-//         return console.log(shiftRu(str))
-//     }
-//      if(lang === 'en'){
-//         return console.log(shiftEn(str))
-//     }
-// }
-// main('ягода', 'ru')
-// // console.log(shiftEnUnc('vwulqjc'))
+console.log(result)
